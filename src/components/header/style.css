@@ -1,0 +1,8 @@
+.navbar {
+    text-align: center;
+    padding-top: 10px;
+    border-bottom: 2px solid red;
+    position: sticky;
+    top: 0;
+    background-color: #ddd;
+}
