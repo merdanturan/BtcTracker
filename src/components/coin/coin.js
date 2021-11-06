@@ -51,7 +51,7 @@ const Coin = () => {
     ///Updates every minute
 
     useEffect(() => {
-        const token = setTimeout(fetchData(), 60000)
+        const token = setTimeout(fetchData, 60000)
 
         return function cleanUp() {
             clearTimeout(token);
