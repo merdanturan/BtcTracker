@@ -12,6 +12,7 @@ const Coin = () => {
 
 
     ///Text color change due to price increase or decrease
+    ///Red text color for decrease / Green text color for increase
 
     const updateCoin = (prevCoin, newCoin) => {
         if (newCoin?.bpi.USD.rate < prevCoin?.bpi.USD.rate) {
