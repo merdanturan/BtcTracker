@@ -2,33 +2,37 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './style.css'
 
+
 const Coin = () => {
+
     ///States
-    const [previous, setPrevious] = useState()
+
     const [coin, setCoin] = useState()
     const [styles, setStyles] = useState('')
 
+
     ///Text color change due to price increase or decrease
-    function updateCoin() {
-        if (coin?.bpi.USD.rate < previous?.bpi.USD.rate) {
+
+    const updateCoin = (prevCoin, newCoin) => {
+        if (newCoin?.bpi.USD.rate < prevCoin?.bpi.USD.rate) {
             setStyles('red-text')
         }
-        else if (coin?.bpi.USD.rate > previous?.bpi.USD.rate) {
+        else if (newCoin?.bpi.USD.rate > prevCoin?.bpi.USD.rate) {
             setStyles('green-text')
         }
-        else if (previous?.bpi.USD.rate === undefined) {
+        else if (prevCoin?.bpi.USD.rate === undefined) {
             setStyles('default-text')
         }
     }
 
+
     ///Fetch function
+
     const fetchData = async () => {
         try {
-            setPrevious(coin)
             const response = await axios.get("https://api.coindesk.com/v1/bpi/currentprice.json")
+            updateCoin(coin, response.data)
             setCoin(response.data)
-            console.log(coin)
-            updateCoin()
         }
         catch (error) {
             console.log(error)
@@ -37,15 +41,15 @@ const Coin = () => {
 
 
     ///First Fetch
+
     useEffect(() => {
         fetchData()
     }, [])
 
+
     ///Updates every minute
+
     useEffect(() => {
-        // use set timeout and be confident because updateTime will cause rerender
-        // rerender mean re call this effect => then it will be similar to how setinterval works
-        // but with easy to understand logic
         const token = setTimeout(fetchData(), 60000)
 
         return function cleanUp() {

@@ -13,28 +13,28 @@ const Counter = () => {
 
     const buttonHandler = (type) => {
         if (type === "hourIncrease") {
-            setHours( hours + 1);
+            setHours(hours + 1);
         }
         else if (type === "hourDecrease" && hours !== 0) {
-            setHours( hours - 1);
+            setHours(hours - 1);
         }
         else if (type === "minuteIncrease" && minutes !== 59) {
-            setMinutes( minutes + 1);
+            setMinutes(minutes + 1);
         }
         else if (type === "minuteDecrease" && minutes !== 0) {
-            setMinutes( minutes - 1);
+            setMinutes(minutes - 1);
         }
         else if (type === "secondIncrease" && seconds !== 59) {
-            setSeconds( seconds + 1);
+            setSeconds(seconds + 1);
         }
         else if (type === "secondDecrease" && seconds !== 0) {
-            setSeconds( seconds - 1);
+            setSeconds(seconds - 1);
         }
     }
 
     ///Countdown
 
-    function updateTime() {
+    const updateTime = () => {
         if (minutes === 0 && seconds === 0 && hours === 0) {
             //reset
             setSeconds(0);
@@ -57,10 +57,11 @@ const Counter = () => {
     }
 
 
+    // updateTime will cause rerender
+    // rerender mean re call this effect => then it will be similar to how setinterval works
+    // but with easy to understand logic
+    
     useEffect(() => {
-        // use set timeout and be confident because updateTime will cause rerender
-        // rerender mean re call this effect => then it will be similar to how setinterval works
-        // but with easy to understand logic
         const token = setTimeout(updateTime, 1000)
 
         return function cleanUp() {
@@ -74,9 +75,9 @@ const Counter = () => {
     return (
         <div className="timer">
             <div>
-                <button onClick={()=>buttonHandler("hourIncrease")}>+</button> 
-                <button onClick={()=>buttonHandler("minuteIncrease")}>+</button> 
-                <button onClick={()=>buttonHandler("secondIncrease")}>+</button> 
+                <button onClick={() => buttonHandler("hourIncrease")}>+</button>
+                <button onClick={() => buttonHandler("minuteIncrease")}>+</button>
+                <button onClick={() => buttonHandler("secondIncrease")}>+</button>
             </div>
 
             <span>
@@ -88,9 +89,9 @@ const Counter = () => {
             </span>
 
             <div>
-                <button onClick={()=>buttonHandler("hourDecrease")}>-</button> 
-                <button onClick={()=>buttonHandler("minuteDecrease")}>-</button> 
-                <button onClick={()=>buttonHandler("secondDecrease")}>-</button> 
+                <button onClick={() => buttonHandler("hourDecrease")}>-</button>
+                <button onClick={() => buttonHandler("minuteDecrease")}>-</button>
+                <button onClick={() => buttonHandler("secondDecrease")}>-</button>
             </div>
         </div>
     );
