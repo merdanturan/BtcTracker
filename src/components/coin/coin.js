@@ -21,6 +21,9 @@ const Coin = () => {
         else if (newCoin?.bpi.USD.rate > prevCoin?.bpi.USD.rate) {
             setStyles('green-text')
         }
+        else if (newCoin?.bpi.USD.rate === prevCoin?.bpi.USD.rate) {
+            setStyles('yellow-text')
+        }
         else if (prevCoin?.bpi.USD.rate === undefined) {
             setStyles('default-text')
         }
